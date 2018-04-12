@@ -3,7 +3,8 @@
 .DS_Store
 
 #database
-/docker/data/**
+/docker/data/db/mysql/**
+!/docker/data/db/mysql/.gitkeep
 
 # PHPStorm
 .idea/**
