@@ -49,7 +49,8 @@ You can change the host name by editing the `.env` file.
 1. clone the magento2 pack
 ```sh
 cd magento
-git clone git@github.com:chienthan3241/magento-fullpakage.git .
+dowload and unzip from here: https://magento.com/tech-resources/download
+composer install
 cd ..
 ``` 
 2. Start docker

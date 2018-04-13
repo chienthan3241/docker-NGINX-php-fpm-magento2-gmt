@@ -10,7 +10,15 @@ services:
             - "3000:443"
         environment:
             - NGINX_HOST=${NGINX_HOST}
-        command: /bin/sh -c "nginx -g 'daemon off;' && cd /var/www/html && find var vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \; && find var vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \; &&  chown -R :www-data . && chmod u+x bin/magento"
+        command: >
+            /bin/sh -c "nginx -g 'daemon off;'
+            && cd /var/www/html
+            && sudo find vendor app/etc -type f -exec chmod g+w {} \;
+            && sudo find vendor app/etc -type d -exec chmod g+ws {} \;
+            && sudo chown -R :www-data .
+            && sudo chmod u+x bin/magento
+            && sudo chmod -R 777 pub
+            && sudo chmod -R 777 var"
         restart: always
         depends_on:
             - php
@@ -33,11 +41,7 @@ services:
         restart: always
         depends_on:
             - mysqldb
-    composer:
-        image: "composer"
-        volumes:
-            - "./magento:/var/www/html"
-        # command: install
+
     mysqldb:
         image: mysql
         container_name: ${MYSQL_HOST}
