@@ -11,7 +11,7 @@ All pre-requirements should be available for your distribution. The most importa
 
 * [Nginx](https://hub.docker.com/_/nginx/)
 * [MySQL](https://hub.docker.com/_/mysql/)
-* [PHP](https://hub.docker.com/_/php/)
+* [PHP](https://hub.docker.com/r/nanoninja/php-fpm/)
 * [PHPMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
 
 | Server     | Port |

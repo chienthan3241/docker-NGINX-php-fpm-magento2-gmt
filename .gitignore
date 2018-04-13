@@ -8,3 +8,6 @@
 
 # PHPStorm
 .idea/**
+
+#magento root
+/magento/**
