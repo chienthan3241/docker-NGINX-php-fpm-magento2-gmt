@@ -10,17 +10,18 @@ services:
             - "3000:443"
         environment:
             - NGINX_HOST=${NGINX_HOST}
-        command: /bin/sh -c "nginx -g 'daemon off;'"
+        command: /bin/sh -c "nginx -g 'daemon off;' && cd /var/www/html && find var vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \; && find var vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \; &&  chown -R :www-data . && chmod u+x bin/magento"
         restart: always
         depends_on:
             - php
             - mysqldb
     php:
-        image: nanoninja/php-fpm:${PHP_VERSION}
+        image: markoshust/magento-php:${PHP_VERSION}
         restart: always
         volumes:
-            - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+            - "./docker/etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./magento:/var/www/html"
+
     myadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin
@@ -35,7 +36,8 @@ services:
     composer:
         image: "composer"
         volumes:
-            - "./magento:/app"
+            - "./magento:/var/www/html"
+        # command: install
     mysqldb:
         image: mysql
         container_name: ${MYSQL_HOST}
