@@ -11,7 +11,7 @@ All pre-requirements should be available for your distribution. The most importa
 
 * [Nginx](https://hub.docker.com/_/nginx/)
 * [MySQL](https://hub.docker.com/_/mysql/)
-* [PHP](https://hub.docker.com/r/nanoninja/php-fpm/)
+* [PHP](https://hub.docker.com/r/tmchut/php-fpm-magento2/tags/)
 * [PHPMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
 
 | Server     | Port |
@@ -22,11 +22,41 @@ All pre-requirements should be available for your distribution. The most importa
 
 You can change the host name by editing the `.env` file.
 
-1. Start
+### Project tree
+
+```sh
+.
+├── README.md
+│── docker
+│   └── data
+│       ├── db
+│       │   └── mysql
+│       └── etc
+│           ├── nginx
+│           │   ├── default.conf
+│           │   └── default.sample.conf
+│           └── php
+│               └── php.ini
+│
+├── docker-compose.yml
+├── .env
+├── .gitignore
+└── magento
+    
+```
+
+
+1. clone the magento2 pack
+```sh
+cd magento
+git clone git@github.com:chienthan3241/magento-fullpakage.git .
+cd ..
+``` 
+2. Start docker
 ```sh
 sudo docker-compose up -d
 ``` 
-2. Server Logs
+3. Server Logs
 ```sh
 sudo docker-compose logs -f # Follow log output
 ```
@@ -35,5 +65,5 @@ sudo docker-compose logs -f # Follow log output
 sudo docker-compose down -v
 ```
 
-* [http://localhost:8000](http://localhost:8000/)
+* [http://localhost:8000](http://localhost:8000/) and follow the install wizard
 * [http://localhost:8080](http://localhost:8080/) PHPMyAdmin (see `.env` file)

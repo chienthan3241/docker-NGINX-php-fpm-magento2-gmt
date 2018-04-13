@@ -1,7 +1,7 @@
 version: '3'
 services:
     web:
-        image: nginx:alpine
+        image: nginx:latest
         volumes:
             - "./docker/etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./magento:/var/www/html"
@@ -16,7 +16,7 @@ services:
             - php
             - mysqldb
     php:
-        image: markoshust/magento-php:${PHP_VERSION}
+        image: tmchut/php-fpm-magento2:${PHP_VERSION}
         restart: always
         volumes:
             - "./docker/etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"

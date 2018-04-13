@@ -6,8 +6,12 @@
 /docker/data/db/mysql/**
 !/docker/data/db/mysql/.gitkeep
 
+#stand alone images
+/docker/php/**
+
 # PHPStorm
 .idea/**
 
 #magento root
 /magento/**
+!/magento/.gitkeep
