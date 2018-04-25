@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
     web:
         image: nginx:latest
@@ -10,24 +10,16 @@ services:
             - "3000:443"
         environment:
             - NGINX_HOST=${NGINX_HOST}
-        command: >
-            /bin/sh -c "nginx -g 'daemon off;'
-            && cd /var/www/html
-            && sudo find vendor app/etc -type f -exec chmod g+w {} \;
-            && sudo find vendor app/etc -type d -exec chmod g+ws {} \;
-            && sudo chown -R :www-data .
-            && sudo chmod u+x bin/magento
-            && sudo chmod -R 777 pub
-            && sudo chmod -R 777 var"
+        command: /bin/sh -c "nginx -g 'daemon off;' && chown -R www-data:www-data /var/www/html && chmod -R 777 /var/www/html"
         restart: always
         depends_on:
             - php
-            - mysqldb
+            - db
+
     php:
         image: tmchut/php-fpm-magento2:${PHP_VERSION}
         restart: always
         volumes:
-            - "./docker/etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./magento:/var/www/html"
 
     myadmin:
@@ -40,10 +32,10 @@ services:
             - PMA_HOST=${MYSQL_HOST}
         restart: always
         depends_on:
-            - mysqldb
+            - db
 
-    mysqldb:
-        image: mysql
+    db:
+        image: mariadb
         container_name: ${MYSQL_HOST}
         restart: always
         env_file:

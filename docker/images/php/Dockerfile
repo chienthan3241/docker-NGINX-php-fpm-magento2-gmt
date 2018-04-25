@@ -1,4 +1,4 @@
-FROM php:7.0.11-fpm
+FROM php:7.0.12-fpm
 MAINTAINER Manh Cuong Tran <tmchut@yahoo.com>
 
 RUN apt-get update && apt-get install -y \
