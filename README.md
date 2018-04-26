@@ -1,4 +1,4 @@
-Docker composer running NGINX, PHP, MySQL, PHPMyAdmin all requirements for magento2
+Germantom Development environment unsing Docker composer running NGINX, PHP, MySQL, PHPMyAdmin all requirements for magento2
 
 ## Install pre-requirements
 All pre-requirements should be available for your distribution. The most important are :
@@ -28,13 +28,14 @@ You can change the host name by editing the `.env` file.
 .
 ├── README.md
 │── docker
-│   └── data
-│       ├── db
-│       │   └── mysql
-│       └── etc
+│   ├── data
+│   │   └── db
+│   │        └── mysql
+│   └── etc
 │           ├── nginx
 │           │   ├── default.conf
-│           │   └── default.sample.conf
+│           │   ├── default.sample.conf
+│           │   └── nginx.conf
 │           └── php
 │               └── php.ini
 │
@@ -50,21 +51,28 @@ You can change the host name by editing the `.env` file.
 ```sh
 cd magento
 dowload and unzip from here: https://magento.com/tech-resources/download
-composer install
 cd ..
 ``` 
 2. Start docker
 ```sh
-sudo docker-compose up -d
+docker-compose up -d
 ``` 
 3. Server Logs
 ```sh
-sudo docker-compose logs -f # Follow log output
+docker-compose logs -f # Follow log output
 ```
 3. Stop and clear services
 ```sh
-sudo docker-compose down -v
+docker-compose down -v
 ```
 
 * [http://localhost:8000](http://localhost:8000/) and follow the install wizard
 * [http://localhost:8080](http://localhost:8080/) PHPMyAdmin (see `.env` file)
+
+```
+note: 
+  + in the install mode : change root $APP_ROOT; in nginx default.conf  
+  + after install change this to: root $APP_ROOT/pub;
+  + run magento command muss be ssh first in php container: e.g.
+        docker exec -ti container_id /bin/bash
+```
